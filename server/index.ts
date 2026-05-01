@@ -504,6 +504,15 @@ const app = new Elysia()
         return db.query('SELECT id, actor_email, action, entity_id, created_at FROM audit_logs ORDER BY created_at DESC LIMIT 100').all();
     })
 
+    .get('/api/admin/leads', async ({ bearer, jwt, set }) => {
+        const actor = await getAuthUser(bearer, jwt);
+        if (!actor || (actor.role !== 'admin' && actor.role !== 'editor')) {
+            set.status = 403;
+            return { error: 'Admin access required' };
+        }
+        return db.query('SELECT * FROM contact_leads ORDER BY created_at DESC').all();
+    })
+
     .get('/api/admin/metrics', async ({ bearer, jwt, set }) => {
         const actor = await getAuthUser(bearer, jwt);
         if (!actor || (actor.role !== 'admin' && actor.role !== 'editor')) {

@@ -43,10 +43,10 @@ export const RequestForm = ({ type, onFinish, loading, uploadProps, coverUploadP
                         </Form.Item>
                         <div className="grid grid-2 gap-4">
                             <Form.Item name="whatsapp" label={<span className="font-medium text-slate">WhatsApp</span>} rules={[{ required: true, message: 'Required' }]}>
-                                <Input prefix={<WhatsAppOutlined style={{ color: '#94a3b8' }} />} placeholder="+91..." />
+                                <Input prefix={<WhatsAppOutlined style={{ color: '#94a3b8' }} />} placeholder="WhatsApp number" />
                             </Form.Item>
                             <Form.Item name="phone" label={<span className="font-medium text-slate">Alt Phone</span>} rules={[{ required: true }]}>
-                                <Input prefix={<PhoneOutlined style={{ color: '#94a3b8' }} />} placeholder="+91..." />
+                                <Input prefix={<PhoneOutlined style={{ color: '#94a3b8' }} />} placeholder="Alternative phone" />
                             </Form.Item>
                         </div>
                         <Form.Item name="institution" label={<span className="font-medium text-slate">Institution / Organization</span>}>

@@ -12,6 +12,7 @@ export default function Admin() {
     const router = useRouter();
     const [items, setItems] = useState([]);
     const [auditItems, setAuditItems] = useState([]);
+    const [leads, setLeads] = useState([]);
     const [metrics, setMetrics] = useState(null);
     const [loading, setLoading] = useState(true);
     const [searchText, setSearchText] = useState('');
@@ -20,13 +21,15 @@ export default function Admin() {
     const loadAdminItems = async () => {
         try {
             setLoading(true);
-            const [data, audit, metricPayload] = await Promise.all([
+            const [data, audit, metricPayload, leadsData] = await Promise.all([
                 api.getAdminSubmissions(),
                 api.getAuditLog(),
                 api.getAdminMetrics(),
+                api.getAdminLeads()
             ]);
             setItems(Array.isArray(data) ? data : []);
             setAuditItems(Array.isArray(audit) ? audit : []);
+            setLeads(Array.isArray(leadsData) ? leadsData : []);
             setMetrics(metricPayload || null);
         } catch (error) {
             message.error(error.message || 'Failed to load admin workflow');
@@ -123,6 +126,23 @@ export default function Admin() {
         { title: 'Entity', dataIndex: 'entity_id', key: 'entity_id', render: (value) => value || 'n/a' },
     ];
 
+    const leadsColumns = [
+        { title: 'Date', dataIndex: 'created_at', key: 'created_at', render: (value) => new Date(value).toLocaleDateString() },
+        { title: 'Name', dataIndex: 'name', key: 'name' },
+        { title: 'Email', dataIndex: 'email', key: 'email' },
+        { title: 'Lane', dataIndex: 'lane', key: 'lane', render: (lane) => <Tag>{lane}</Tag> },
+        { title: 'Subject', dataIndex: 'subject', key: 'subject' },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <Space>
+                    <Tooltip title="View Message"><Button size="small" icon={<EyeOutlined />} onClick={() => Modal.info({ title: `Message from ${record.name}`, content: <p style={{ whiteSpace: 'pre-wrap', marginTop: 16 }}>{record.message}</p>, width: 600 })} /></Tooltip>
+                </Space>
+            )
+        }
+    ];
+
     return (
         <div className="page-wrapper container">
             <div className="admin-header">
@@ -167,6 +187,11 @@ export default function Admin() {
                         },
                         {
                             key: '3',
+                            label: <Badge count={leads.length} offset={[10, 0]} color="blue">Consultation Leads</Badge>,
+                            children: <Table dataSource={leads} columns={leadsColumns} loading={loading} rowKey="id" pagination={{ pageSize: 8 }} />,
+                        },
+                        {
+                            key: '4',
                             label: 'Audit Trail',
                             children: <Table dataSource={auditItems} columns={auditColumns} loading={loading} rowKey="id" pagination={{ pageSize: 8 }} />,
                         },
@@ -195,7 +220,27 @@ export default function Admin() {
                         <Descriptions.Item label="Abstract">{viewRecord.description}</Descriptions.Item>
                         <Descriptions.Item label="File Name">{viewRecord.fileName || 'Not provided'}</Descriptions.Item>
                         <Descriptions.Item label="File Size">{viewRecord.fileSize || 'Not provided'}</Descriptions.Item>
-                        <Descriptions.Item label="Document URL">{viewRecord.document_url || 'Not uploaded'}</Descriptions.Item>
+                        <Descriptions.Item label="Document URL">
+                            {viewRecord.document_url ? (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                    <a href={viewRecord.document_url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-primary)' }}>
+                                        View Full Document
+                                    </a>
+                                    {viewRecord.document_url.endsWith('.pdf') ? (
+                                        <img src={viewRecord.document_url.replace(/\.pdf$/, '.jpg')} alt="Document Preview" style={{ maxWidth: '100%', maxHeight: '300px', objectFit: 'contain', borderRadius: '8px', border: '1px solid var(--color-border-light)' }} />
+                                    ) : (
+                                        <img src={viewRecord.document_url} alt="Document" style={{ maxWidth: '100%', maxHeight: '300px', objectFit: 'contain', borderRadius: '8px', border: '1px solid var(--color-border-light)' }} />
+                                    )}
+                                </div>
+                            ) : (
+                                'Not uploaded'
+                            )}
+                        </Descriptions.Item>
+                        {viewRecord.cover && (
+                            <Descriptions.Item label="Cover Preview">
+                                <img src={viewRecord.cover} alt="Cover Preview" style={{ maxWidth: '200px', borderRadius: '8px' }} />
+                            </Descriptions.Item>
+                        )}
                     </Descriptions>
                 )}
             </Modal>

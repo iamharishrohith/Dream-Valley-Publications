@@ -33,6 +33,8 @@ export default function Contact() {
             <Title level={1} style={{ textAlign: 'center', marginBottom: '0.5rem' }}>Request a publishing consultation</Title>
             <Paragraph style={{ textAlign: 'center', fontSize: '1.125rem', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-8)', maxWidth: '640px', margin: '0 auto var(--space-8)' }}>
                 Use this form for service questions, institutional publishing inquiries, or premium author consultations. This flow now feeds a real lead intake endpoint instead of a placeholder success message.
+                <br /><br />
+                <span style={{ fontSize: '0.9rem', color: 'var(--color-primary)' }}>Note for admins: Submissions here appear in the <strong>Consultation Leads</strong> tab of the Admin Dashboard.</span>
             </Paragraph>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 'var(--space-8)' }}>
@@ -73,10 +75,10 @@ export default function Contact() {
                     <Title level={2} style={{ marginTop: 0 }}>Tell us what you need</Title>
                     <Form form={form} layout="vertical" onFinish={onFinish} size="large">
                         <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please enter your name' }]}>
-                            <Input placeholder="Your Name" />
+                            <Input placeholder="Full name" />
                         </Form.Item>
                         <Form.Item name="email" label="Email" rules={[{ required: true, type: 'email', message: 'Please enter a valid email' }]}>
-                            <Input placeholder="your@email.com" />
+                            <Input placeholder="Email address" />
                         </Form.Item>
                         <Form.Item name="lane" label="Publishing lane" rules={[{ required: true, message: 'Please select a lane' }]}>
                             <Select

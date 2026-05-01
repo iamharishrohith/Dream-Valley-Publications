@@ -104,6 +104,10 @@ export const api = {
         return request('/api/admin/audit');
     },
 
+    async getAdminLeads() {
+        return request('/api/admin/leads');
+    },
+
     async getAdminMetrics() {
         return request('/api/admin/metrics');
     },
