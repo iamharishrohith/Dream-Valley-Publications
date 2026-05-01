@@ -31,7 +31,7 @@ function AppShell({ children }) {
             colorBgBase: isDark ? '#0b0b0c' : undefined,
             colorBgLayout: isDark ? '#0b0b0c' : undefined,
             colorBgContainer: isDark ? '#18181b' : undefined,
-            colorBgElevated: isDark ? '#1f1f23' : undefined,
+            colorBgElevated: isDark ? '#1f1f23' : '#ffffff',
             colorFillSecondary: isDark ? 'rgba(255,255,255,0.06)' : undefined,
             colorFillTertiary: isDark ? 'rgba(255,255,255,0.08)' : undefined,
             colorPrimaryBg: isDark ? '#232326' : undefined,
@@ -40,59 +40,64 @@ function AppShell({ children }) {
             fontFamily: 'Inter, sans-serif',
         },
         algorithm: isDark ? antTheme.darkAlgorithm : antTheme.defaultAlgorithm,
-        components: isDark
-            ? {
-                  Button: {
-                      defaultBg: '#18181b',
-                      defaultBorderColor: '#303036',
-                      defaultColor: '#f5f5f5',
-                      primaryColor: '#111111',
-                      colorPrimary: '#f5f5f5',
-                      colorPrimaryHover: '#ffffff',
-                      colorPrimaryActive: '#d4d4d8',
-                  },
-                  Input: {
-                      colorBgContainer: '#111112',
-                      colorBorder: '#303036',
-                      activeBorderColor: '#f5f5f5',
-                      hoverBorderColor: '#cfcfd4',
-                  },
-                  Select: {
-                      colorBgContainer: '#111112',
-                      colorBorder: '#303036',
-                      optionSelectedBg: '#28282b',
-                  },
-                  Tabs: {
-                      itemColor: '#8b8b95',
-                      itemSelectedColor: '#f5f5f5',
-                      itemActiveColor: '#ffffff',
-                      inkBarColor: '#f5f5f5',
-                  },
-                  Menu: {
-                      itemColor: '#c4c4cc',
-                      itemSelectedColor: '#111111',
-                      itemSelectedBg: '#f5f5f5',
-                      itemHoverColor: '#ffffff',
-                      itemHoverBg: '#232326',
-                  },
-                  Table: {
-                      headerBg: '#232326',
-                      headerColor: '#f5f5f5',
-                      rowHoverBg: '#28282b',
-                      borderColor: '#303036',
-                  },
-                  Drawer: {
-                      colorBgElevated: '#18181b',
-                  },
-                  Modal: {
-                      contentBg: '#18181b',
-                      headerBg: '#18181b',
-                  },
-                  Dropdown: {
-                      colorBgElevated: '#18181b',
-                  },
-              }
-            : undefined,
+        components: {
+            Select: {
+                colorBgContainer: isDark ? '#111112' : '#ffffff',
+                colorBgElevated: isDark ? '#1f1f23' : '#ffffff',
+                colorBorder: isDark ? '#303036' : undefined,
+                optionSelectedBg: isDark ? '#28282b' : '#e6f4ff',
+                optionActiveBg: isDark ? '#2a2a2e' : '#f0f5ff',
+                selectorBg: isDark ? '#111112' : '#ffffff',
+            },
+            ...(isDark
+                ? {
+                      Button: {
+                          defaultBg: '#18181b',
+                          defaultBorderColor: '#303036',
+                          defaultColor: '#f5f5f5',
+                          primaryColor: '#111111',
+                          colorPrimary: '#f5f5f5',
+                          colorPrimaryHover: '#ffffff',
+                          colorPrimaryActive: '#d4d4d8',
+                      },
+                      Input: {
+                          colorBgContainer: '#111112',
+                          colorBorder: '#303036',
+                          activeBorderColor: '#f5f5f5',
+                          hoverBorderColor: '#cfcfd4',
+                      },
+                      Tabs: {
+                          itemColor: '#8b8b95',
+                          itemSelectedColor: '#f5f5f5',
+                          itemActiveColor: '#ffffff',
+                          inkBarColor: '#f5f5f5',
+                      },
+                      Menu: {
+                          itemColor: '#c4c4cc',
+                          itemSelectedColor: '#111111',
+                          itemSelectedBg: '#f5f5f5',
+                          itemHoverColor: '#ffffff',
+                          itemHoverBg: '#232326',
+                      },
+                      Table: {
+                          headerBg: '#232326',
+                          headerColor: '#f5f5f5',
+                          rowHoverBg: '#28282b',
+                          borderColor: '#303036',
+                      },
+                      Drawer: {
+                          colorBgElevated: '#18181b',
+                      },
+                      Modal: {
+                          contentBg: '#18181b',
+                          headerBg: '#18181b',
+                      },
+                      Dropdown: {
+                          colorBgElevated: '#18181b',
+                      },
+                  }
+                : {}),
+        },
     };
 
     return (

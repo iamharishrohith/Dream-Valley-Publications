@@ -36,10 +36,10 @@ export const RequestForm = ({ type, onFinish, loading, uploadProps, coverUploadP
                     <h3 className="form-section-title">Contact and profile</h3>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
                         <Form.Item name="author" label={<span className="font-medium text-slate">Full Name</span>} rules={[{ required: true, message: 'Required' }]}>
-                            <Input prefix={<UserOutlined style={{ color: '#94a3b8' }} />} placeholder="e.g. Dr. Jane Doe" />
+                            <Input prefix={<UserOutlined style={{ color: '#94a3b8' }} />} placeholder="Full name" />
                         </Form.Item>
                         <Form.Item name="email" label={<span className="font-medium text-slate">Email</span>} rules={[{ required: true, type: 'email' }]}>
-                            <Input prefix={<MailOutlined style={{ color: '#94a3b8' }} />} placeholder="jane@example.com" />
+                            <Input prefix={<MailOutlined style={{ color: '#94a3b8' }} />} placeholder="Email address" />
                         </Form.Item>
                         <div className="grid grid-2 gap-4">
                             <Form.Item name="whatsapp" label={<span className="font-medium text-slate">WhatsApp</span>} rules={[{ required: true, message: 'Required' }]}>
@@ -50,7 +50,7 @@ export const RequestForm = ({ type, onFinish, loading, uploadProps, coverUploadP
                             </Form.Item>
                         </div>
                         <Form.Item name="institution" label={<span className="font-medium text-slate">Institution / Organization</span>}>
-                            <Input prefix={<BankOutlined style={{ color: '#94a3b8' }} />} placeholder="University, journal, company, or independent author brand" />
+                            <Input prefix={<BankOutlined style={{ color: '#94a3b8' }} />} placeholder="Organization or affiliation" />
                         </Form.Item>
                     </div>
                 </div>
@@ -79,7 +79,7 @@ export const RequestForm = ({ type, onFinish, loading, uploadProps, coverUploadP
                         </div>
 
                         <Form.Item name="title" label={<span className="font-medium text-slate">{type === 'book' ? 'Book Title' : 'Paper / Journal Title'}</span>} rules={[{ required: true }]}>
-                            <Input prefix={<BookOutlined style={{ color: '#94a3b8' }} />} placeholder="Title..." />
+                            <Input prefix={<BookOutlined style={{ color: '#94a3b8' }} />} placeholder="Manuscript title" />
                         </Form.Item>
 
                         <div className="grid grid-2 gap-4">
@@ -94,12 +94,12 @@ export const RequestForm = ({ type, onFinish, loading, uploadProps, coverUploadP
                                 />
                             </Form.Item>
                             <Form.Item name="region" label={<span className="font-medium text-slate">Primary Region</span>}>
-                                <Input placeholder="India, Global, University region..." />
+                                <Input placeholder="Target region" />
                             </Form.Item>
                         </div>
 
-                        <Form.Item name="description" label={<span className="font-medium text-slate">Abstract / Project Summary</span>} rules={[{ required: true, min: 20 }]}>
-                            <TextArea rows={4} placeholder="Brief summary of the manuscript, publication objective, and audience..." showCount maxLength={800} />
+                        <Form.Item name="description" label={<span className="font-medium text-slate">Abstract / Project Summary <span style={{ fontWeight: 400, color: '#94a3b8', fontSize: '0.8rem' }}>(max 800 words)</span></span>} rules={[{ required: true, min: 20 }]}>
+                            <TextArea rows={4} placeholder="Summarize the manuscript, objectives, and intended audience" showCount maxLength={5000} />
                         </Form.Item>
 
                         <Form.Item label="Upload Cover Image">
@@ -107,6 +107,9 @@ export const RequestForm = ({ type, onFinish, loading, uploadProps, coverUploadP
                                 <p className="ant-upload-drag-icon"><CloudUploadOutlined /></p>
                                 <p className="ant-upload-text text-sm">Upload a cover or project visual (JPG/PNG)</p>
                             </Dragger>
+                            <p className="cover-upload-hint">
+                                Recommended: <strong>1600 × 2400 px</strong> (2:3 portrait). Accepted: JPG, PNG — max 5 MB.
+                            </p>
                         </Form.Item>
 
                         <Form.Item label="Upload Manuscript">

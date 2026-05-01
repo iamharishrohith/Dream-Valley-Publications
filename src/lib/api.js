@@ -28,10 +28,16 @@ const request = async (path, options = {}) => {
         headers.set('Authorization', `Bearer ${token}`);
     }
 
-    const response = await fetch(`${API_BASE}${path}`, {
-        ...options,
-        headers,
-    });
+    let response;
+    try {
+        response = await fetch(`${API_BASE}${path}`, {
+            ...options,
+            headers,
+        });
+    } catch (networkErr) {
+        // Server unreachable (not running, DNS failure, CORS, etc.)
+        throw new Error('Unable to reach the server. Please try again later.');
+    }
 
     let payload = null;
     const contentType = response.headers.get('content-type') || '';

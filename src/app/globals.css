@@ -3476,3 +3476,225 @@ select {
     width: 100%;
   }
 }
+
+/* ============================================================
+   Publish Page — Bug Fixes & Polish
+   ============================================================ */
+
+/* --- Ant Design Select Dropdown: Opaque Background Fix --- */
+.ant-select-dropdown,
+div.ant-select-dropdown,
+.ant-select-dropdown.ant-select-dropdown-placement-bottomLeft,
+.ant-select-dropdown.ant-select-dropdown-placement-topLeft {
+  background-color: #ffffff !important;
+  border: 1px solid var(--color-border) !important;
+  box-shadow: var(--shadow-lg) !important;
+  border-radius: var(--radius-lg) !important;
+  z-index: 9999 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.ant-select-dropdown .ant-select-item {
+  background-color: #ffffff !important;
+  color: var(--color-text) !important;
+}
+
+.ant-select-dropdown .ant-select-item-option-active,
+.ant-select-dropdown .ant-select-item-option:hover {
+  background-color: #f0f5ff !important;
+}
+
+.ant-select-dropdown .ant-select-item-option-selected {
+  background-color: #e6f4ff !important;
+  font-weight: 600;
+}
+
+[data-theme='dark'] .ant-select-dropdown,
+[data-theme='dark'] div.ant-select-dropdown,
+[data-theme='dark'] .ant-select-dropdown.ant-select-dropdown-placement-bottomLeft,
+[data-theme='dark'] .ant-select-dropdown.ant-select-dropdown-placement-topLeft {
+  background-color: #1f1f23 !important;
+  border-color: #3a3a40 !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme='dark'] .ant-select-dropdown .ant-select-item {
+  background-color: #1f1f23 !important;
+  color: var(--color-text) !important;
+}
+
+[data-theme='dark'] .ant-select-dropdown .ant-select-item-option-active,
+[data-theme='dark'] .ant-select-dropdown .ant-select-item-option:hover {
+  background-color: #2a2a2e !important;
+}
+
+[data-theme='dark'] .ant-select-dropdown .ant-select-item-option-selected {
+  background-color: #303036 !important;
+}
+
+/* --- Steps Flow Line: Constrain Width & Reduce Gap --- */
+.publish-steps-wrap {
+  max-width: 48rem;
+  margin: 0 auto var(--space-8);
+}
+
+.publish-steps-wrap .ant-steps {
+  margin-bottom: 0 !important;
+}
+
+.publish-steps-wrap .ant-steps-item-description {
+  max-width: 160px !important;
+  font-size: 0.8rem !important;
+  line-height: 1.35 !important;
+}
+
+/* --- Guidelines Preview Thumbnail --- */
+.guidelines-box {
+  background: #f0f5ff;
+  border: 1px solid #d6e4ff;
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.guidelines-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.guidelines-content {
+  display: flex;
+  gap: var(--space-6);
+  align-items: flex-start;
+}
+
+.guidelines-list {
+  list-style: disc;
+  padding-left: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.guidelines-preview {
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.guidelines-preview-thumb {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: #ffffff;
+  padding: var(--space-3);
+  display: inline-block;
+  box-shadow: var(--shadow-sm);
+}
+
+.guidelines-preview-thumb img {
+  display: block;
+  border-radius: var(--radius);
+}
+
+[data-theme='dark'] .guidelines-preview-thumb {
+  background: #232326;
+  border-color: #3a3a40;
+}
+
+@media (max-width: 767px) {
+  .guidelines-content {
+    flex-direction: column;
+  }
+
+  .guidelines-preview {
+    align-self: center;
+  }
+}
+
+/* --- Cover Upload Hint --- */
+.cover-upload-hint {
+  margin-top: var(--space-2);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.01em;
+}
+
+.cover-upload-hint strong {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+/* --- Form Section Layout --- */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+}
+
+.form-section {
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+}
+
+.form-section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-6);
+}
+
+[data-theme='dark'] .form-section {
+  border-color: var(--color-border);
+}
+
+@media (max-width: 767px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+/* --- Publish Page Background --- */
+.publish-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.publish-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.25;
+}
+
+.publish-blob-1 {
+  width: 400px;
+  height: 400px;
+  background: #1890ff;
+  top: -100px;
+  right: -80px;
+}
+
+.publish-blob-2 {
+  width: 300px;
+  height: 300px;
+  background: #722ed1;
+  bottom: -50px;
+  left: -60px;
+}
+
+[data-theme='dark'] .publish-blob {
+  opacity: 0.12;
+}

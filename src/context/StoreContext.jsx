@@ -16,8 +16,13 @@ export function StoreProvider({ children }) {
             const data = await api.getBooks({ status: 'Published' });
             setBooks(Array.isArray(data) ? data : []);
         } catch (error) {
-            console.error('Error loading library:', error);
-            toast.error('Failed to load published catalog');
+            // Silently handle when backend is unreachable (expected in dev)
+            if (error.message?.includes('Unable to reach')) {
+                console.warn('Catalog API offline — skipping initial fetch');
+            } else {
+                console.error('Error loading library:', error);
+                toast.error('Failed to load published catalog');
+            }
         } finally {
             setLoading(false);
         }

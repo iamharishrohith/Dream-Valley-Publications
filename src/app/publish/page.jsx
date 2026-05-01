@@ -2,8 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Card, Result, Tabs, Image, Button, Steps, Upload } from 'antd';
-import { FileTextOutlined } from '@ant-design/icons';
+import { Card, Result, Tabs, Button, Steps, Upload } from 'antd';
+import { FileTextOutlined, PictureOutlined } from '@ant-design/icons';
 import gsap from 'gsap';
 import { RequestForm } from '@/components/RequestForm';
 import { useStore } from '@/context/StoreContext';
@@ -119,14 +119,15 @@ export default function Publish() {
                         <li>After submission, the project enters an editorial intake workflow rather than instant publication.</li>
                     </ul>
                 </div>
-                <div>
+                <div className="guidelines-preview">
                     <p className="font-semibold mb-2 text-xs uppercase tracking-wider text-muted">Submission preview</p>
-                    <div className="border rounded shadow-sm bg-white inline-block p-2">
-                        <Image
-                            width={100}
+                    <div className="guidelines-preview-thumb">
+                        <img
                             src="/Assets/new-white-logo-bgrmrv.png"
-                            placeholder={true}
                             alt="Dream Valley Publications submission preview"
+                            width={100}
+                            height={100}
+                            style={{ objectFit: 'contain' }}
                         />
                     </div>
                 </div>
@@ -168,15 +169,17 @@ export default function Publish() {
                         </p>
                     </div>
 
-                    <Steps
-                        className="mb-8"
-                        responsive
-                        items={[
-                            { title: 'Choose lane', description: 'Academic or author publishing' },
-                            { title: 'Add files', description: 'Upload manuscript and optional cover' },
-                            { title: 'Editorial intake', description: 'Team qualification and follow-up' },
-                        ]}
-                    />
+                    <div className="publish-steps-wrap">
+                        <Steps
+                            className="mb-8"
+                            responsive
+                            items={[
+                                { title: 'Choose lane', description: 'Academic or author publishing' },
+                                { title: 'Add files', description: 'Upload manuscript and optional cover' },
+                                { title: 'Editorial intake', description: 'Team qualification and follow-up' },
+                            ]}
+                        />
+                    </div>
 
                     <div className="px-2">
                         <Guidelines />
