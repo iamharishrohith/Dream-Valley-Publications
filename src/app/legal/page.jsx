@@ -1,7 +1,5 @@
-import { Card, Typography, Divider } from 'antd';
+import { Card } from 'antd';
 import { COMPANY } from '@/lib/site';
-
-const { Title, Paragraph } = Typography;
 
 export const metadata = {
     title: 'Terms & Privacy',
@@ -10,64 +8,62 @@ export const metadata = {
 
 export default function LegalPage() {
     return (
-        <main className="page-wrapper container" style={{ maxWidth: '56rem' }}>
-            <article>
-                <Card className="shadow-soft rounded-xl border-none p-8 premium-card">
-                    <Title level={1} style={{ fontSize: '2.5rem', color: 'var(--color-primary)' }}>Legal Information</Title>
+        <div className="page-wrapper container">
+            <section className="premium-hero-block">
+                <p className="premium-kicker">Legal</p>
+                <h1 className="premium-title">Terms & Privacy</h1>
+                <p className="premium-copy">
+                    By using {COMPANY.name}, you agree to the following terms and acknowledge our privacy practices.
+                </p>
+            </section>
 
-                    <Title level={2} style={{ fontSize: '1.75rem', marginTop: '2rem' }}>Terms of Service</Title>
-                    <Paragraph style={{ fontSize: '1.125rem', color: 'var(--color-text-secondary)', lineHeight: '1.8' }}>
-                        Welcome to {COMPANY.name}. By accessing or using our website, services, or content, you agree to comply with and be bound by the following terms and conditions.
-                    </Paragraph>
+            <Card className="premium-card" variant="borderless">
+                <h2 className="premium-card-title">Terms of Service</h2>
 
-                    <Title level={3} style={{ fontSize: '1.25rem', marginTop: '1.5rem' }}>1. Acceptance of Terms</Title>
-                    <Paragraph style={{ fontSize: '1.05rem', color: 'var(--color-text-secondary)', lineHeight: '1.8' }}>
-                        By using our portal, you signify your agreement to these Terms of Service. If you do not agree to these terms, you may not use our services.
-                    </Paragraph>
+                <h3 className="text-lg font-semibold mt-6 mb-2">1. Acceptance of Terms</h3>
+                <p className="text-gray mb-4">
+                    By using our portal, you signify your agreement to these Terms of Service. If you do not agree to these terms, you may not use our services.
+                </p>
 
-                    <Title level={3} style={{ fontSize: '1.25rem', marginTop: '1.5rem' }}>2. Intellectual Property Rights</Title>
-                    <Paragraph style={{ fontSize: '1.05rem', color: 'var(--color-text-secondary)', lineHeight: '1.8' }}>
-                        All content published by {COMPANY.name}, including text, graphics, logos, and academic output, is the property of {COMPANY.name} or its authors and is protected by copyright laws. You may not reproduce, distribute, or create derivative works without explicit permission.
-                    </Paragraph>
+                <h3 className="text-lg font-semibold mt-6 mb-2">2. Intellectual Property Rights</h3>
+                <p className="text-gray mb-4">
+                    All content published by {COMPANY.name}, including text, graphics, logos, and academic output, is the property of {COMPANY.name} or its authors and is protected by copyright laws. You may not reproduce, distribute, or create derivative works without explicit permission.
+                </p>
 
-                    <Title level={3} style={{ fontSize: '1.25rem', marginTop: '1.5rem' }}>3. Submissions</Title>
-                    <Paragraph style={{ fontSize: '1.05rem', color: 'var(--color-text-secondary)', lineHeight: '1.8' }}>
-                        By submitting a manuscript, you warrant that the work is original, has not been published previously, and is not under consideration elsewhere. You grant {COMPANY.name} the right to review and potentially publish your submission.
-                    </Paragraph>
+                <h3 className="text-lg font-semibold mt-6 mb-2">3. Submissions</h3>
+                <p className="text-gray mb-4">
+                    By submitting a manuscript, you warrant that the work is original, has not been published previously, and is not under consideration elsewhere. You grant {COMPANY.name} the right to review and potentially publish your submission.
+                </p>
 
-                    <Title level={3} style={{ fontSize: '1.25rem', marginTop: '1.5rem' }}>4. Disclaimer of Warranties</Title>
-                    <Paragraph style={{ fontSize: '1.05rem', color: 'var(--color-text-secondary)', lineHeight: '1.8' }}>
-                        Our services are provided &ldquo;as is&rdquo; without any warranties, express or implied. We do not guarantee that our website will be error-free or uninterrupted.
-                    </Paragraph>
+                <h3 className="text-lg font-semibold mt-6 mb-2">4. Disclaimer of Warranties</h3>
+                <p className="text-gray mb-4">
+                    Our services are provided as-is without any warranties, express or implied. We do not guarantee that our website will be error-free or uninterrupted.
+                </p>
+            </Card>
 
-                    <Divider style={{ margin: '2.5rem 0' }} />
+            <Card className="premium-card" variant="borderless" style={{ marginTop: 'var(--space-8)' }}>
+                <h2 className="premium-card-title">Privacy Policy</h2>
 
-                    <Title level={2} style={{ fontSize: '1.75rem' }}>Privacy Policy</Title>
-                    <Paragraph style={{ fontSize: '1.125rem', color: 'var(--color-text-secondary)', lineHeight: '1.8' }}>
-                        At {COMPANY.name}, we are committed to protecting your privacy. This policy outlines how we collect, use, and safeguard your personal information.
-                    </Paragraph>
+                <h3 className="text-lg font-semibold mt-6 mb-2">1. Information Collection</h3>
+                <p className="text-gray mb-4">
+                    We collect information that you voluntarily provide to us, such as your name, email address, affiliation, and manuscript details when you submit a proposal or contact us.
+                </p>
 
-                    <Title level={3} style={{ fontSize: '1.25rem', marginTop: '1.5rem' }}>1. Information Collection</Title>
-                    <Paragraph style={{ fontSize: '1.05rem', color: 'var(--color-text-secondary)', lineHeight: '1.8' }}>
-                        We collect information that you voluntarily provide to us, such as your name, email address, affiliation, and manuscript details when you submit a proposal or contact us.
-                    </Paragraph>
+                <h3 className="text-lg font-semibold mt-6 mb-2">2. Use of Information</h3>
+                <p className="text-gray mb-4">
+                    The information we collect is used to process your submissions, communicate with you regarding our services, and improve our website experience. We do not sell your personal data to third parties.
+                </p>
 
-                    <Title level={3} style={{ fontSize: '1.25rem', marginTop: '1.5rem' }}>2. Use of Information</Title>
-                    <Paragraph style={{ fontSize: '1.05rem', color: 'var(--color-text-secondary)', lineHeight: '1.8' }}>
-                        The information we collect is used to process your submissions, communicate with you regarding our services, and improve our website experience. We do not sell your personal data to third parties.
-                    </Paragraph>
+                <h3 className="text-lg font-semibold mt-6 mb-2">3. Data Security</h3>
+                <p className="text-gray mb-4">
+                    We implement appropriate security measures to protect your personal information against unauthorized access, alteration, or disclosure.
+                </p>
 
-                    <Title level={3} style={{ fontSize: '1.25rem', marginTop: '1.5rem' }}>3. Data Security</Title>
-                    <Paragraph style={{ fontSize: '1.05rem', color: 'var(--color-text-secondary)', lineHeight: '1.8' }}>
-                        We implement appropriate security measures to protect your personal information against unauthorized access, alteration, or disclosure.
-                    </Paragraph>
-
-                    <Title level={3} style={{ fontSize: '1.25rem', marginTop: '1.5rem' }}>4. Cookies</Title>
-                    <Paragraph style={{ fontSize: '1.05rem', color: 'var(--color-text-secondary)', lineHeight: '1.8' }}>
-                        Our website may use cookies to enhance user experience. You can choose to set your web browser to refuse cookies, but some parts of the site may not function properly.
-                    </Paragraph>
-                </Card>
-            </article>
-        </main>
+                <h3 className="text-lg font-semibold mt-6 mb-2">4. Cookies</h3>
+                <p className="text-gray mb-4">
+                    Our website may use cookies to enhance user experience. You can choose to set your web browser to refuse cookies, but some parts of the site may not function properly.
+                </p>
+            </Card>
+        </div>
     );
 }

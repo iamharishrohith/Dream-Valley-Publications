@@ -89,6 +89,11 @@ export default function Home() {
                                     Explore Services
                                 </Button>
                             </Link>
+                            <Link href="/about">
+                                <Button size="large" shape="round" icon={<TeamOutlined />}>
+                                    About Us
+                                </Button>
+                            </Link>
                         </div>
 
                         <div className="hero-lane-grid" aria-label="Publishing platform highlights">

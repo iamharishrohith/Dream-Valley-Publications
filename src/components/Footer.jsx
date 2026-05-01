@@ -58,6 +58,7 @@ export const Footer = () => {
                     <div>
                         <h4 className="footer-heading">Discover</h4>
                         <ul className="footer-links">
+                            <li><Link href="/about">About Us</Link></li>
                             <li><Link href="/resources">Resources</Link></li>
                             <li><Link href="/catalog">Catalog</Link></li>
                             <li><Link href="/contact">Contact</Link></li>
