@@ -2119,7 +2119,9 @@ select {
 }
 
 .mobile-only {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 @media (min-width: 768px) {
