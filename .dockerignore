@@ -1,0 +1,12 @@
+.git
+.gitignore
+.next
+node_modules
+server/node_modules
+server/.env
+.env
+.env.local
+npm-debug.log*
+coverage
+test-results
+playwright-report

@@ -1,0 +1,40 @@
+services:
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ./server/.env
+    environment:
+      PORT: 3001
+      DATABASE_PATH: /data/dvp.db
+    volumes:
+      - dvpublishers-data:/data
+    ports:
+      - "3001:3001"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://dreamvalleypublications.com}
+        NEXT_PUBLIC_COMPANY_NAME: ${NEXT_PUBLIC_COMPANY_NAME:-Dream Valley Publications}
+        NEXT_PUBLIC_COMPANY_SHORT_NAME: ${NEXT_PUBLIC_COMPANY_SHORT_NAME:-Dream Valley}
+        NEXT_PUBLIC_SUPPORT_EMAIL: ${NEXT_PUBLIC_SUPPORT_EMAIL:-support@dreamvalleypublications.com}
+        NEXT_PUBLIC_CONSULTATION_EMAIL: ${NEXT_PUBLIC_CONSULTATION_EMAIL:-consult@dreamvalleypublications.com}
+        NEXT_PUBLIC_SUPPORT_PHONE: ${NEXT_PUBLIC_SUPPORT_PHONE:-+91 90000 00000}
+        NEXT_PUBLIC_PRIMARY_REGION: ${NEXT_PUBLIC_PRIMARY_REGION:-India}
+        NEXT_PUBLIC_PRIMARY_TIMEZONE: ${NEXT_PUBLIC_PRIMARY_TIMEZONE:-IST (UTC+05:30)}
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+
+volumes:
+  dvpublishers-data:

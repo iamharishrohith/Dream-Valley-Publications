@@ -1,0 +1,81 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+      ADMIN_EMAIL: editor@example.com
+      ADMIN_PASSWORD: Password123
+      JWT_SECRET: ci-local-secret-123
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install server dependencies
+        working-directory: server
+        run: bun install --frozen-lockfile
+
+      - name: Verify environment contract
+        run: npm run verify:env
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Start API
+        working-directory: server
+        run: |
+          bun run index.ts > ../api.log 2>&1 &
+          echo $! > ../api.pid
+
+      - name: Start frontend
+        run: |
+          npm start > web.log 2>&1 &
+          echo $! > web.pid
+
+      - name: Wait for services
+        run: |
+          for i in {1..30}; do
+            if curl -fsS http://localhost:3001/api/health > /dev/null && curl -fsS http://localhost:3000 > /dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Services failed to start"
+          exit 1
+
+      - name: Smoke check
+        run: npm run smoke
+
+      - name: Flow verification
+        run: npm run verify:flows
+
+      - name: Security audit
+        run: npm run verify:security
+
+      - name: Print logs on failure
+        if: failure()
+        run: |
+          echo "=== api.log ==="
+          cat api.log || true
+          echo "=== web.log ==="
+          cat web.log || true

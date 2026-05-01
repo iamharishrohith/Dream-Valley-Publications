@@ -1,0 +1,42 @@
+{
+  "name": "nexus-book-platform",
+  "version": "4.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "server": "cd server && bun run dev",
+    "smoke": "node scripts/smoke-check.mjs",
+    "verify:flows": "node scripts/flow-check.mjs",
+    "verify:env": "node scripts/env-check.mjs",
+    "verify:security": "npm audit --audit-level=high",
+    "verify:db": "bun scripts/db-check.mjs"
+  },
+  "dependencies": {
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
+    "@neondatabase/serverless": "^1.1.0",
+    "antd": "^5.15.0",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.10.0",
+    "framer-motion": "^12.34.3",
+    "gsap": "^3.12.5",
+    "jose": "^6.2.3",
+    "lucide-react": "^0.358.0",
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "sonner": "^1.4.3"
+  },
+  "devDependencies": {
+    "babel-plugin-react-compiler": "1.0.0"
+  },
+  "ignoreScripts": [
+    "sharp",
+    "unrs-resolver"
+  ],
+  "trustedDependencies": [
+    "sharp",
+    "unrs-resolver"
+  ]
+}

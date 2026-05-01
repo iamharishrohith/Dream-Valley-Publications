@@ -1,0 +1,80 @@
+# ─── Dependencies ───────────────────────────────────────
+node_modules/
+server/node_modules/
+client/node_modules/
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# ─── Build Output ───────────────────────────────────────
+/.next/
+/out/
+/build
+/dist
+
+# ─── Environment Variables ──────────────────────────────
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+server/.env
+
+# ─── Database ───────────────────────────────────────────
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# ─── Lock Files (keep package-lock.json or bun.lock, not both) ─
+package-lock.json
+server/bun.lock
+
+# ─── Uploads & User Generated ──────────────────────────
+server/uploads/
+server/data/
+
+# ─── GCloud / Deploy Configs ───────────────────────────
+.gcloud/
+
+# ─── OS Files ───────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ─── IDE / Editor ───────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ─── Debug Logs ─────────────────────────────────────────
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ─── Security / Keys ───────────────────────────────────
+*.pem
+*.key
+*.crt
+*.p12
+
+# ─── Misc ───────────────────────────────────────────────
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+/coverage
+
+# ─── Markdown docs (internal only) ─────────────────────
+DEPLOYMENT_CHECKLIST.md
+GCP_DEPLOYMENT.md
+PRODUCTION_SECURITY_CHECKLIST.md
+RUNBOOK.md
+SECURITY.md
