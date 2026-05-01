@@ -67,7 +67,7 @@ export const Header = () => {
                             </Dropdown>
                         ))}
                         <Link href="/resources" className={`nav-link hover-underline ${pathname.startsWith('/resources') ? 'active' : ''}`}>Resources</Link>
-                        <Link href="/books" className={`nav-link hover-underline ${pathname.startsWith('/books') ? 'active' : ''}`}>Catalog</Link>
+                        <Link href="/catalog" className={`nav-link hover-underline ${pathname.startsWith('/catalog') ? 'active' : ''}`}>Catalog</Link>
                         <Link href="/contact" className={`nav-link hover-underline ${pathname.startsWith('/contact') ? 'active' : ''}`}>Contact</Link>
                     </div>
 
@@ -113,7 +113,7 @@ export const Header = () => {
                     </div>
                 </div>
 
-                <div className="mobile-only flex items-center gap-3">
+                <div className="mobile-only flex items-center gap-5">
                     <button
                         ref={toggleMobileRef}
                         className="theme-toggle"
@@ -159,7 +159,7 @@ export const Header = () => {
                     <Link href="/resources" onClick={() => setMobileMenuOpen(false)}>
                         <Button block type="text">Resources</Button>
                     </Link>
-                    <Link href="/books" onClick={() => setMobileMenuOpen(false)}>
+                    <Link href="/catalog" onClick={() => setMobileMenuOpen(false)}>
                         <Button block type="text">Catalog</Button>
                     </Link>
                     <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>

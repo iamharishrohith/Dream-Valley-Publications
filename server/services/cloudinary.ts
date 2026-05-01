@@ -87,9 +87,8 @@ export async function uploadDocument(
         cloudinary.uploader.upload_stream(
             {
                 folder: safeFolder,
-                resource_type: 'raw',
+                resource_type: 'auto',
                 public_id: safePublicId,
-                format: safeFormat || 'bin',
             },
             (error, uploadResult) => {
                 if (error || !uploadResult) reject(error || new Error('Upload failed'));

@@ -51,8 +51,7 @@ export const Footer = () => {
                         <ul className="footer-links">
                             <li><Link href="/trust">Trust & Standards</Link></li>
                             <li><Link href="/editorial">Editorial Promise</Link></li>
-                            <li><Link href="/privacy">Privacy</Link></li>
-                            <li><Link href="/terms">Terms</Link></li>
+                            <li><Link href="/legal">Terms & Privacy</Link></li>
                             <li><Link href="/for-authors">Author Guidance</Link></li>
                         </ul>
                     </div>
@@ -60,8 +59,7 @@ export const Footer = () => {
                         <h4 className="footer-heading">Discover</h4>
                         <ul className="footer-links">
                             <li><Link href="/resources">Resources</Link></li>
-                            <li><Link href="/books">Books</Link></li>
-                            <li><Link href="/journals">Journals</Link></li>
+                            <li><Link href="/catalog">Catalog</Link></li>
                             <li><Link href="/contact">Contact</Link></li>
                         </ul>
                     </div>
