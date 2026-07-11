@@ -16,6 +16,15 @@ if (!isProd) {
 const nextConfig = {
   reactCompiler: true,
   output: 'standalone',
+  async redirects() {
+    return [
+      {
+        source: '/books',
+        destination: '/catalog',
+        permanent: true,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },

@@ -125,6 +125,12 @@ export const api = {
         });
     },
 
+    async resendEmail(id) {
+        return request(`/api/admin/submissions/${id}/resend-email`, {
+            method: 'POST',
+        });
+    },
+
     async createSubmission(data) {
         return request('/api/submissions', {
             method: 'POST',

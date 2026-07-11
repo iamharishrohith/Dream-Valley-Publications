@@ -8,6 +8,7 @@ import { join } from 'node:path';
 
 import { firestore, verifyToken } from './services/firebase';
 import { uploadImage, uploadDocument, deleteImage } from './services/cloudinary';
+import { sendSubmissionConfirmation, sendPublicationNotice, sendContactLeadNotice } from './services/email';
 
 type AuthUser = { id: string; email: string; role: string; provider: 'jwt' | 'firebase' };
 
@@ -599,7 +600,7 @@ const app = new Elysia()
             sanitizeText(body.language || 'English', 40)
         );
 
-        const created = db.query(`${baseBookSelect} WHERE id = ?`).get(id);
+        const created = db.query(`${baseBookSelect} WHERE id = ?`).get(id) as any;
 
         if (useFirebase) {
             try {
@@ -607,6 +608,12 @@ const app = new Elysia()
             } catch (error) {
                 console.error('Firestore sync error:', error);
             }
+        }
+
+        try {
+            await sendSubmissionConfirmation(email, author, title, id);
+        } catch (err) {
+            console.error('Failed sending submission confirmation email:', err);
         }
 
         return created;
@@ -711,8 +718,24 @@ const app = new Elysia()
             params.id
         );
 
-        const updated = db.query(`${baseBookSelect} WHERE id = ?`).get(params.id);
+        const updated = db.query(`${baseBookSelect} WHERE id = ?`).get(params.id) as any;
         recordAudit(actor.email, 'submission.update', params.id);
+
+        if (body.status === 'Published' && current.status !== 'Published') {
+            try {
+                const identifier = body.isbn || updated.isbn || 'Pending';
+                await sendPublicationNotice(
+                    updated.email || updated.owner_email || current.email,
+                    updated.author,
+                    updated.title,
+                    identifier,
+                    updated.id,
+                    updated.type
+                );
+            } catch (err) {
+                console.error('Failed sending publication congratulatory email:', err);
+            }
+        }
 
         if (useFirebase) {
             try {
@@ -785,6 +808,46 @@ const app = new Elysia()
         return { success: true };
     })
 
+    .post('/api/admin/submissions/:id/resend-email', async ({ params, bearer, jwt, set }) => {
+        const actor = await getAuthUser(bearer, jwt);
+        if (!actor || (actor.role !== 'admin' && actor.role !== 'editor')) {
+            set.status = 403;
+            return { error: 'Admin access required' };
+        }
+
+        const book = db.query(`${baseBookSelect} WHERE id = ?`).get(params.id) as any;
+        if (!book) {
+            set.status = 404;
+            return { error: 'Submission not found' };
+        }
+
+        try {
+            if (book.status === 'Published') {
+                const identifier = book.isbn || 'Pending';
+                await sendPublicationNotice(
+                    book.email || book.owner_email,
+                    book.author,
+                    book.title,
+                    identifier,
+                    book.id,
+                    book.type
+                );
+            } else {
+                await sendSubmissionConfirmation(
+                    book.email || book.owner_email,
+                    book.author,
+                    book.title,
+                    book.id
+                );
+            }
+            recordAudit(actor.email, `submission.resend_email_${book.status.toLowerCase()}`, book.id);
+            return { success: true };
+        } catch (err: any) {
+            set.status = 500;
+            return { error: err.message || 'Failed to send email' };
+        }
+    })
+
     .post('/api/upload/image', async ({ body, set }) => {
         const file = body.file;
         if (!file) {
@@ -850,7 +913,7 @@ const app = new Elysia()
         }),
     })
 
-    .post('/api/contact', ({ body, set }) => {
+    .post('/api/contact', async ({ body, set }) => {
         const email = normalizeEmail(body.email);
         if (!validateEmail(email)) {
             set.status = 400;
@@ -858,15 +921,26 @@ const app = new Elysia()
         }
 
         const id = crypto.randomUUID();
+        const name = sanitizeText(body.name, 120);
+        const subject = sanitizeOptionalText(body.subject, 160) || 'General Inquiry';
+        const message = sanitizeText(body.message, 3000);
+
         db.prepare('INSERT INTO contact_leads (id, name, email, lane, subject, message) VALUES (?, ?, ?, ?, ?, ?)').run(
             id,
-            sanitizeText(body.name, 120),
+            name,
             email,
             sanitizeText(body.lane, 60),
-            sanitizeOptionalText(body.subject, 160),
-            sanitizeText(body.message, 3000)
+            subject,
+            message
         );
         recordAudit(email, 'contact.created', id);
+
+        try {
+            await sendContactLeadNotice(email, name, subject, message);
+        } catch (err) {
+            console.error('Failed sending contact lead emails:', err);
+        }
+
         return { success: true, id };
     }, {
         body: t.Object({

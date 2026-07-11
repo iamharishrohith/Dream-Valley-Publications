@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Card, Tag } from 'antd';
 import { RESOURCE_TOPICS, COMPANY } from '@/lib/site';
 
@@ -21,9 +22,19 @@ export default function ResourcesPage() {
                 <Card className="premium-card" variant="borderless">
                     <h2 className="premium-card-title">Priority topic clusters</h2>
                     <div className="premium-tag-wrap">
-                        {RESOURCE_TOPICS.map((topic) => (
-                            <Tag key={topic} color="blue">{topic}</Tag>
-                        ))}
+                        {RESOURCE_TOPICS.map((topic) => {
+                            const isLinked = topic === 'ISBN guidance' || topic === 'DOI and metadata readiness';
+                            if (isLinked) {
+                                return (
+                                    <Link key={topic} href="/resources/standards" style={{ display: 'inline-block' }}>
+                                        <Tag color="blue" className="clickable-tag" style={{ cursor: 'pointer', transition: 'all var(--transition-fast)' }}>
+                                            {topic} →
+                                        </Tag>
+                                    </Link>
+                                );
+                            }
+                            return <Tag key={topic} color="blue">{topic}</Tag>;
+                        })}
                     </div>
                 </Card>
                 <Card className="premium-card" variant="borderless">

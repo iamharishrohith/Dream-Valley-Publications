@@ -48,7 +48,7 @@ export default function BookDetails() {
         '@type': 'BreadcrumbList',
         itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dreamvalleypublications.com' },
-            { '@type': 'ListItem', position: 2, name: isJournal ? 'Journals' : 'Books', item: `https://dreamvalleypublications.com/${isJournal ? 'journals' : 'books'}` },
+            { '@type': 'ListItem', position: 2, name: isJournal ? 'Journals' : 'Books', item: `https://dreamvalleypublications.com/${isJournal ? 'journals' : 'catalog'}` },
             { '@type': 'ListItem', position: 3, name: book.title },
         ],
     };
@@ -62,7 +62,7 @@ export default function BookDetails() {
                 <ol style={{ display: 'flex', gap: '0.5rem', listStyle: 'none', padding: 0, margin: 0 }}>
                     <li><a href="/" style={{ color: 'var(--color-primary)' }}>Home</a></li>
                     <li>/</li>
-                    <li><a href={isJournal ? '/journals' : '/books'} style={{ color: 'var(--color-primary)' }}>{isJournal ? 'Journals' : 'Books'}</a></li>
+                    <li><a href={isJournal ? '/journals' : '/catalog'} style={{ color: 'var(--color-primary)' }}>{isJournal ? 'Journals' : 'Books'}</a></li>
                     <li>/</li>
                     <li aria-current="page" style={{ color: 'var(--color-text-secondary)' }}>{book.title}</li>
                 </ol>

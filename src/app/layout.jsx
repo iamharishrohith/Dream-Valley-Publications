@@ -106,7 +106,7 @@ const jsonLd = [
             '@type': 'SearchAction',
             target: {
                 '@type': 'EntryPoint',
-                urlTemplate: `${SITE_URL}/books?search={search_term_string}`,
+                urlTemplate: `${SITE_URL}/catalog?search={search_term_string}`,
             },
             'query-input': 'required name=search_term_string',
         },

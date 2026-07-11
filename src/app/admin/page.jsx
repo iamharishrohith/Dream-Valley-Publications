@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { api } from '@/lib/api';
 import { Card, Table, Tag, Button, Input, Tabs, Badge, Space, Modal, message, Result, Spin, Tooltip, Descriptions } from 'antd';
-import { CheckOutlined, DeleteOutlined, SearchOutlined, LockOutlined, EyeOutlined } from '@ant-design/icons';
+import { CheckOutlined, DeleteOutlined, SearchOutlined, LockOutlined, EyeOutlined, MailOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
 
 export default function Admin() {
@@ -69,13 +69,18 @@ export default function Admin() {
 
     const handleApprove = (record) => {
         let identifier = record.isbn || '';
+        const isJournal = record.type === 'journal';
         Modal.confirm({
             title: 'Approve for publication',
             content: (
                 <div>
-                    <p>Assign a publication identifier or ISBN:</p>
+                    <p style={{ marginBottom: 8 }}>
+                        {isJournal
+                            ? 'Assign DOI or ISSN (International Standard Serial Number):'
+                            : 'Assign ISBN (International Standard Book Number):'}
+                    </p>
                     <Input
-                        placeholder="Identifier..."
+                        placeholder={isJournal ? 'DOI or ISSN...' : 'ISBN...'}
                         onChange={(event) => { identifier = event.target.value; }}
                         defaultValue={record.isbn || ''}
                     />
@@ -100,6 +105,15 @@ export default function Admin() {
         loadAdminItems();
     };
 
+    const handleResendEmail = async (record) => {
+        try {
+            await api.resendEmail(record.id);
+            message.success('Notification email resent successfully');
+        } catch (error) {
+            message.error(error.message || 'Failed to resend email');
+        }
+    };
+
     const columns = [
         { title: 'Title', dataIndex: 'title', key: 'title' },
         { title: 'Author', dataIndex: 'author', key: 'author' },
@@ -113,6 +127,7 @@ export default function Admin() {
                 <Space>
                     <Tooltip title="View Details"><Button size="small" icon={<EyeOutlined />} onClick={() => setViewRecord(record)} /></Tooltip>
                     {record.status === 'Pending' && <Tooltip title="Approve"><Button type="primary" size="small" icon={<CheckOutlined />} onClick={() => handleApprove(record)} /></Tooltip>}
+                    <Tooltip title="Resend Notification"><Button size="small" icon={<MailOutlined />} onClick={() => handleResendEmail(record)} /></Tooltip>
                     <Tooltip title="Delete"><Button danger size="small" icon={<DeleteOutlined />} onClick={() => handleDelete(record)} /></Tooltip>
                 </Space>
             ),
@@ -203,7 +218,12 @@ export default function Admin() {
                 title="Submission Details"
                 open={!!viewRecord}
                 onCancel={() => setViewRecord(null)}
-                footer={[<Button key="close" onClick={() => setViewRecord(null)}>Close</Button>]}
+                footer={[
+                    <Button key="resend" icon={<MailOutlined />} onClick={() => handleResendEmail(viewRecord)}>
+                        Resend Email
+                    </Button>,
+                    <Button key="close" onClick={() => setViewRecord(null)}>Close</Button>
+                ]}
             >
                 {viewRecord && (
                     <Descriptions column={1} bordered>
