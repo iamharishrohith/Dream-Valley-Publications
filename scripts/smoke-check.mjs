@@ -5,6 +5,7 @@ const checks = [
     { label: 'Homepage', url: `${webBase}/` },
     { label: 'Services page', url: `${webBase}/services` },
     { label: 'Resources page', url: `${webBase}/resources` },
+    { label: 'Standards page', url: `${webBase}/resources/standards` },
     { label: 'API health', url: `${apiBase}/api/health` },
 ];
 
