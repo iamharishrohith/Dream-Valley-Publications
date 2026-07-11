@@ -70,7 +70,9 @@ jobs:
         run: npm run verify:flows
 
       - name: Security audit
-        run: npm run verify:security
+        run: |
+          npm i --package-lock-only
+          npm run verify:security
 
       - name: Print logs on failure
         if: failure()
