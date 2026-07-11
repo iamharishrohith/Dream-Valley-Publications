@@ -29,11 +29,11 @@ jobs:
           bun-version: latest
 
       - name: Install root dependencies
-        run: bun install --frozen-lockfile
+        run: bun install
 
       - name: Install server dependencies
         working-directory: server
-        run: bun install --frozen-lockfile
+        run: bun install
 
       - name: Verify environment contract
         run: npm run verify:env
