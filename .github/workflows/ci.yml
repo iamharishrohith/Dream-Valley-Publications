@@ -71,7 +71,7 @@ jobs:
 
       - name: Security audit
         run: |
-          npm i --package-lock-only
+          npm i --package-lock-only --legacy-peer-deps
           npm run verify:security
 
       - name: Print logs on failure
